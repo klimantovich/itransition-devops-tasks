@@ -1,0 +1,63 @@
+# Default values for mysqldb.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: klim4ntovich.online/mysql
+  pullPolicy: IfNotPresent
+  tag: 8.0.34
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+podLabels: {}
+
+containerPort: 3306
+containerPortName: mysql
+
+service:
+  type: ClusterIP
+  portName: mysql
+  port: 3306
+
+resources:
+  {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+livinessProbe:
+  exec:
+    command: ["mysqladmin", "ping"]
+  initialDelaySeconds: 15
+  periodSeconds: 10
+  timeoutSeconds: 5
+
+readinessProbe:
+  {}
+  # httpGet:
+  #   path: /
+  #   port: http
+
+volumes: []
+
+volumeMounts: []
+
+persistentStorage:
+  name: db-data
+  mountPath: /var/lib/mysql
+  accessMode: ReadWriteOnce
+  storage: 50Mi
+
+configmap:
+  db_name: ""
+
+secret:
+  db_password: ""

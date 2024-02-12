@@ -1,0 +1,56 @@
+version: '3.3'
+
+services:
+  db:
+    image: klim4ntovich.online/mysql:8.0.34
+    env_file:
+      - .env
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password='$$MYSQL_PASSWORD'"]
+      start_period: 20s
+      interval: 5s
+      retries: 5
+    networks:
+      - backend
+    expose:
+      - '3306'
+    volumes:
+      - "./db/init.sql:/docker-entrypoint-initdb.d/init.sql"
+      - db-data:/var/lib/mysql
+
+  front:
+    image: klim4ntovich.online/flask-application
+    deploy:
+      mode: replicated
+      replicas: 3
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db
+    networks:
+      - frontend
+      - backend
+    expose:
+      - '5000'
+
+  loadbalancer:
+    image: klim4ntovich.online/loadbalancer
+    restart: always
+    networks:
+      - frontend
+    ports:
+      - 80:80
+    depends_on: 
+      - front
+
+volumes:
+  db-data:
+
+networks:
+  frontend:
+  backend:

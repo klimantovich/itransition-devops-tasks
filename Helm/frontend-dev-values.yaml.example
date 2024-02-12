@@ -1,0 +1,12 @@
+configmap:
+  db_user: <Enter your value here>
+  db_name: <Enter your value here>
+  db_host: <Enter your value here>
+
+secret:
+  db_password: <Enter your value here>
+
+ingress:
+  httpAuth:
+    user: <Enter your value here>
+    password: <Enter your value here>

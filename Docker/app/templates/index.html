@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>KLIMANTOVICHs APP</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <style>
+    .content {
+      margin: 10px
+    }
+
+    .hostname {
+      margin: 5px;
+      font-size: 16px;
+    }
+
+    .headDiv {
+      border: 1px rgb(123, 123, 123);
+      float: left;
+      margin: 5px;
+    }
+
+    .items {
+      clear: left;
+      padding: 15px;
+    }
+
+    ul {
+      padding: 0px;
+      margin: 0px;
+    }
+
+    li {
+      list-style-type: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="content">
+    <p class="hostname">{{ hostname }}</p>
+    <hr>
+    <div class="headDiv">
+      <form action="/add_text" method="post">
+        <label for="textv">Add Item:</label><br>
+        <input type="text" id="textv" name="textv" value=""><br>
+        <input type="submit" value="Add">
+      </form>
+    </div>
+    <div class="headDiv">
+      <form action="/delete_text" method="post">
+        <label for="textv">Delete Item:</label><br>
+        <input type="text" id="textv" name="textv" value=""><br>
+        <input type="submit" value="Delete">
+      </form>
+    </div>
+    <div class="items">
+      <h1>[1] ITEMS LIST</h1>
+      <ul>
+        {% for text in all_text %}
+        <li> {{ loop.index }}. {{ text[1] }} </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</body>
+
+</html>

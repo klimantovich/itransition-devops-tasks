@@ -1,0 +1,6 @@
+flask==2.0.1
+flask-mysql==1.5.2
+Werkzeug==2.2.2
+cryptography==41.0.7
+
+PyMySQL

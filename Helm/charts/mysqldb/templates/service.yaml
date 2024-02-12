@@ -1,0 +1,30 @@
+# Headless service for stable DNS entries of StatefulSet members.
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "mysqldb.headlessSvcName" . }}
+  labels:
+    {{- include "mysqldb.labels" . | nindent 4 }}
+spec:
+  clusterIP: None
+  selector:
+    {{- include "mysqldb.selectorLabels" . | nindent 4 }}
+  ports:
+    - name: {{ .Values.service.portName }}
+      port: {{ .Values.service.port }}
+---
+# Client service for connecting to any MySQL instance for reads.
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "mysqldb.svcName" . }}
+  labels:
+    {{- include "mysqldb.labels" . | nindent 4 }}
+    readonly: "true"
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    {{- include "mysqldb.selectorLabels" . | nindent 4 }}
+  ports:
+    - name: {{ .Values.service.portName }}
+      port: {{ .Values.service.port }}

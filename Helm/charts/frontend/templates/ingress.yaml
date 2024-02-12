@@ -1,0 +1,37 @@
+{{- if .Values.ingress.enabled -}}
+{{- $svcPort := .Values.service.port -}}
+{{- $svcName := include "frontend.serviceName" . -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "frontend.fullname" . }}-ingress
+  labels:
+    {{- include "frontend.labels" . | nindent 4 }}
+  {{- if or .Values.ingress.httpAuth.enabled .Values.ingress.annotations }}
+  annotations:
+    {{- with .Values.ingress.annotations }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- if .Values.ingress.httpAuth.enabled }}
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: {{ include "frontend.authSecretName" . }}
+    nginx.ingress.kubernetes.io/auth-realm: "{{ .Values.ingress.httpAuth.realmString }}"
+    {{- end }}
+  {{- end }}
+spec:
+  rules:
+    {{- range .Values.ingress.hosts }}
+    - host: {{ .host | quote }}
+      http:
+        paths:
+        {{- range .paths }}
+          - pathType: {{ .pathType }}
+            path: {{ .path }}
+            backend:
+              service:
+                name: {{ $svcName }}
+                port:
+                  number: {{ $svcPort }}
+        {{- end }}
+    {{- end }}
+{{- end }}

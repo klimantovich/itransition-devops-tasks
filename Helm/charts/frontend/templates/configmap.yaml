@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "frontend.configmapName" . }}
+data:
+  db_user: "{{ .Values.configmap.db_user }}"
+  db_name: "{{ .Values.configmap.db_name }}"
+  db_host: "{{ .Values.configmap.db_host }}"

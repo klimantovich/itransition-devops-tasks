@@ -1,0 +1,6 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "mysqldb.configmapName" . }}
+data:
+  db_name: {{ .Values.configmap.db_name }}

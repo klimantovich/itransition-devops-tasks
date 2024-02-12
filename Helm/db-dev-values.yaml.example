@@ -1,0 +1,5 @@
+configmap:
+  db_name: <Enter your value here>
+
+secret:
+  db_password: <Enter your value here>
