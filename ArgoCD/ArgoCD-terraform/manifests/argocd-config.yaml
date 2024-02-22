@@ -1,0 +1,9 @@
+---
+# Overwrite default values https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/values.yaml
+
+# configs:
+#   repositories:
+#     <repository_1>:
+#       url: <repository_url>
+#       name: <repository_name>
+#       type: <repository_type>
