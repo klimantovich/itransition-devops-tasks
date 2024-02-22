@@ -43,3 +43,13 @@ resource "aws_iam_role_policy_attachment" "eksClusterPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
   role       = aws_iam_role.eksClusterRole.name
 }
+
+#-----------------------------------------------
+# Update kubeconfig file
+#-----------------------------------------------
+resource "null_resource" "kubectl" {
+  provisioner "local-exec" {
+    command = "aws eks update-kubeconfig --region=${var.aws_region} --name=${var.cluster_name}"
+  }
+  depends_on = [aws_eks_cluster.cluster]
+}

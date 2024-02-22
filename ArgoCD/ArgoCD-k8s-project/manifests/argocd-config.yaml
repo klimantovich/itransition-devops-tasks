@@ -1,0 +1,16 @@
+---
+configs:
+  repositories:
+    repo1:
+      url: https://github.com/klimantovich/us-west-1-cluster
+      name: gym-management
+      type: git
+  params:
+    server.insecure: true
+server:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hostname: argocd.klim4ntovich.online
+    path: /
+    pathType: Prefix
