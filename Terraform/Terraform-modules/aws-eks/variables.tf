@@ -7,6 +7,11 @@ variable "environment" {
   default     = ""
 }
 
+variable "aws_region" {
+  description = "AWS Region for Cluster"
+  default     = "us-west-2"
+}
+
 #-----------------------------------------------
 # EKS Cluster variables
 #-----------------------------------------------
