@@ -37,7 +37,3 @@ project_namespace         = "gymmanagement"
 db_name      = "Gym"
 db_user      = "root"
 httpAuthUser = "vitali"
-
-gsm_project                  = "disco-freedom-409407"
-gsm_db_password_secret       = "gymmanagement-project-db-password"
-gsm_httpAuth_password_secret = "gymmanagement-project-httpAuth-password"

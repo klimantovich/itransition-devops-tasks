@@ -221,21 +221,3 @@ variable "httpAuthUser" {
   default = "User for HTTP Basic Auth"
   type    = string
 }
-
-#-----------------------------------------------
-# Google Secret Manager variables
-#-----------------------------------------------
-variable "gsm_project" {
-  description = "GCP project ID where Secret Manager is located"
-  type        = string
-}
-
-variable "gsm_httpAuth_password_secret" {
-  description = "GCP Secret Manager httpAuth_password Secret name"
-  type        = string
-}
-
-variable "gsm_db_password_secret" {
-  description = "GCP Secret Manager database password Secret name"
-  type        = string
-}

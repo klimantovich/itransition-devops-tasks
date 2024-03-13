@@ -1,5 +1,3 @@
-# https://developer.hashicorp.com/terraform/language/settings/backends/gcs
-
 terraform {
   required_version = "~> 1.6.2"
 
@@ -13,9 +11,9 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.39.0"
     }
-    google = {
-      source  = "hashicorp/google"
-      version = "~> 5.18.0"
+    tls = {
+      source  = "hashicorp/tls"
+      version = "~> 4.0.5"
     }
     kubectl = {
       source  = "gavinbunney/kubectl"
@@ -23,7 +21,7 @@ terraform {
     }
     helm = {
       source  = "hashicorp/helm"
-      version = "~> 2.12"
+      version = "~> 2.12.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
