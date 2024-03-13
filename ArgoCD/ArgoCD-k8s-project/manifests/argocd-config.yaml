@@ -1,0 +1,13 @@
+---
+configs:
+  repositories:
+    repo1:
+      url: https://github.com/klimantovich/us-west-1-cluster
+      name: gym-management
+      type: git
+  # params:
+  #   server.insecure: true
+server:
+  service:
+    type: LoadBalancer
+    servicePortHttpsAppProtocol: HTTPS
