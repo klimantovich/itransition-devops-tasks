@@ -1,0 +1,12 @@
+aws_access_key_id                  = "<ACCESS_KEY_ID>"
+aws_secret_access_key              = "<SECREET_ACCESS_KEY>"
+aws_region                         = "us-west-2"
+environment                        = "dev"
+k8s_vpc_cidr                       = "172.16.0.0/16"
+k8s_instances_ami                  = "ami-08116b9957a259459"
+k8s_api_loadbalancer_instance_type = "t2.micro"
+k8s_master_instance_type           = "t2.medium"
+k8s_worker_instance_type           = "t2.small"
+k8s_master_nodes_count             = 3
+k8s_worker_nodes_count             = 2
+k8s_pod_network_cidr               = "10.244.0.0/16"

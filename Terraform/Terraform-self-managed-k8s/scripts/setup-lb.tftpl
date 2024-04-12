@@ -1,0 +1,30 @@
+#!/bin/bash
+
+hostnamectl set-hostname ${hostname}
+
+#---------------------------------------------------------
+# Install HAProxy on host
+#---------------------------------------------------------
+apt-get update
+apt-get install -y haproxy 
+
+cat >>/etc/haproxy/haproxy.cfg <<-EOL
+frontend kube-apiserver
+    bind *:6443
+    mode tcp
+    option tcplog
+    default_backend kube-apiserver
+
+backend kube-apiserver
+    mode tcp
+    option tcp-check
+    balance roundrobin
+    %{ for node_index, node_ip in master_nodes_ips_map ~}
+    server k8s-master-${node_index} ${node_ip}:6443 check fall 3 rise 2
+    %{ endfor ~}
+
+EOL
+
+systemctl start haproxy
+systemctl enable haproxy
+systemctl restart haproxy
